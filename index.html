@@ -10,11 +10,21 @@
   <body>
     <h1>Fourier Series Visualizer</h1>
     <p>
-      Welcome to this demonstration on how a
+      Welcome to this little demonstration on how a
       <strong>Fourier series</strong> work.
     </p>
+
+    <p class="formula">
+      \( f(x) = \frac{a_0}{2} + \sum_{n = 1}^{\infty} \; ( a_n \; \cos(nx) + b_n \; \sin(nx) ) \)
+    </p>
+    <p class="formula">
+      \( a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \;\mathrm{d}x, \; \; 
+      a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \; \cos(nx) \;\mathrm{d}x, \; \;
+      b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \; \sin(nx) \;\mathrm{d}x \)
+    </p>
+
     <p>
-      Here you create any periodic function and let the program create the
+      Here you can create a periodic function and let the program build the
       Fourier series out of it.
       <br />
       With this you'll see that any periodic function can be written as a sum of
@@ -22,49 +32,52 @@
     </p>
 
     <p>
-      Choose a periodic function type and adjust its amplitude \(A\), frequency \(f\) and offset \(\phi\).
+      Choose a periodic function type and adjust its amplitude \(A\), frequency \(f\), phase \(\phi\) and offset \(\mathrm{O}\).
     </p>
 
-
-    <select>
+    <select class="fct-select">
         <option value="sinus"">Sinus</option>
         <option value="rectangular"">Rectangular</option>
         <option value="triangular"">Triangular</option>
         <option value="sawtooth"">Sawtooth</option>
     </select>
 
-    <br />
-
     <canvas id="inputCanvas"></canvas>
 
     <div class="slider-row">
         <div>
-            <p>\(A =\) <span id="ampVal">\(3\)</span></p>
-            <input type="range" value="3" min="0" max="10" step="1" 
+            <p>\( A = \) <span id="ampVal">\(3\)</span></p>
+            <input class="amplitude-slider" type="range" value="1" min="0" max="3" step="0.1" 
             oninput="document.getElementById('ampVal').textContent = this.value"/>
         </div>
         <div>
-            <p>\(f = \) <span id="freqVal">\(33\)</span></p>
-            <input type="range" value="33" min="0" max="100" step="1"
+            <p>\( f = \) <span id="freqVal">\(33\)</span></p>
+            <input class="frequency-slider" type="range" value="1" min="0.5" max="5" step="0.1"
             oninput="document.getElementById('freqVal').textContent = this.value"/>
         </div>
         <div>
-            <p>\(\phi = \) <span id="offsetVal">\(0\)</span><sup>°</sup></p>
-            <input type="range" value="0" min="0" max="180" step="1"
+            <p>\( \phi = \) <span id="phaseVal">\(0\)</span><sup>°</sup></p>
+            <input class="phase-slider" type="range" value="90" min="0" max="360" step="1"
+            oninput="document.getElementById('phaseVal').textContent = this.value"/>
+        </div>
+        <div>
+            <p>\( \mathrm{O} = \) <span id="offsetVal">\(0\)</span></p>
+            <input class="offset-slider" type="range" value="0" min="-2" max="2" step="0.1"
             oninput="document.getElementById('offsetVal').textContent = this.value"/>
         </div>
     </div>
     
-    <br />
-    <br />
-
     <p>How many modes should the Fourier series have?</p>
-    <input type="range" step="10" />
 
-    <br />
+    <div>
+      <p>\( n = \) <span id="modesVal">\(0\)</span></p>
+      <input class="modes-slider" type="range" value="0" min="1" max="15" step="1"
+      oninput="document.getElementById('modesVal').textContent = this.value"/>
+    </div>
 
     <canvas id="fourierCanvas"></canvas>
-    <p>\(f(x) = \sin(x) + \cos(x)\)</p>
+
+    <p>\( f(x) = \sin(x) + \cos(x) \)</p>
 
     <script src="script.js"></script>
   </body>

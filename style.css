@@ -12,6 +12,7 @@ body {
 select {
   background-color: #2e2e2e;
   color: white;
+  font-size: medium;
   font-weight: bold;
   text-align: center;
   border: 0.01rem solid;
@@ -19,13 +20,41 @@ select {
 }
 
 canvas {
-  border: 0.01rem solid ;
+  margin: 1rem 0 1rem 0;
+  border: 0.01rem solid;
   border-radius: 0.5rem;
-  width: 40rem;
-  height: 9rem;
+  width: 50rem;
+  height: 10rem;
+}
+
+
+.fourier-formula {
+  font-size: larger;
+}
+
+.fct-select {
+  margin: 1rem 0 0 0;
 }
 
 .slider-row {
   display: flex;
   gap: 2rem;
+  margin: 0 0 2rem 0;
+}
+
+
+.amplitude-slider {
+  accent-color: rgb(210, 10, 10);
+}
+.frequency-slider {
+  accent-color: rgb(10, 160, 10);
+}
+.phase-slider {
+  accent-color: rgb(10, 140, 200);
+}
+.offset-slider {
+  accent-color: rgb(180, 190, 10);
+}
+.modes-slider {
+  accent-color: orange;
 }

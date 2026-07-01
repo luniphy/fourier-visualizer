@@ -12,42 +12,44 @@ function setupCanvas(canvas) {
 }
 
 function setupAxes(canvas, ctx) {
+  coordinateLineLength = 3;
+  ctx.strokeStyle = "white";
+
   w = canvas.clientWidth;
   h = canvas.clientHeight;
 
-  centerX = w / 2;
-  centerY = h / 2;
-
-  tickSize = 3;
-  step = 20;
-
-  ctx.strokeStyle = "white";
-
   // x-axis
   ctx.beginPath();
-  ctx.moveTo(0, centerY);
-  ctx.lineTo(w, centerY);
+  ctx.moveTo(0, h / 2);
+  ctx.lineTo(w, h / 2);
   ctx.stroke();
 
   // y-axis
   ctx.beginPath();
-  ctx.moveTo(centerX, 0);
-  ctx.lineTo(centerX, h);
+  ctx.moveTo(w / 2, 0);
+  ctx.lineTo(w / 2, h);
   ctx.stroke();
 
-  // x steps
-  for (let x = step; x < w; x += step) {
-    ctx.beginPath();
-    ctx.moveTo(x, centerY - tickSize);
-    ctx.lineTo(x, centerY + tickSize);
-    ctx.stroke();
-  }
+  steps = 15;
+  step = (w/2) / steps;
 
-  // y steps
-  for (let y = step; y < h; y += step) {
+  // x steps
+  for (let i = 0; i < w / 2; i += step) {
     ctx.beginPath();
-    ctx.moveTo(centerX - tickSize, y);
-    ctx.lineTo(centerX + tickSize, y);
+
+    // +x
+    ctx.moveTo(w / 2 + i, h / 2 - coordinateLineLength);
+    ctx.lineTo(w / 2 + i, h / 2 + coordinateLineLength);
+    // -x
+    ctx.moveTo(w / 2 - i, h / 2 - coordinateLineLength);
+    ctx.lineTo(w / 2 - i, h / 2 + coordinateLineLength);
+    // +y
+    ctx.moveTo(w / 2 - coordinateLineLength, h / 2 + i);
+    ctx.lineTo(w / 2 + coordinateLineLength, h / 2 + i);
+    // -y
+    ctx.moveTo(w / 2 - coordinateLineLength, h / 2 - i);
+    ctx.lineTo(w / 2 + coordinateLineLength, h / 2 - i);
+
     ctx.stroke();
   }
 }
@@ -60,3 +62,5 @@ fourierCtx = setupCanvas(fourierCanvas);
 
 setupAxes(inputCanvas, inputCtx);
 setupAxes(fourierCanvas, fourierCtx);
+
+// TODO: Adjust Intro text
