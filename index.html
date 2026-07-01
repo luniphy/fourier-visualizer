@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Fourier Series Visualizer</title>
+  </head>
+  <body>
+    <h1>Fourier Series Visualizer</h1>
+    <p>
+      Welcome to this demonstration on how a
+      <strong>Fourier series</strong> work.
+    </p>
+    <p>
+      Here you create any periodic function and let the program create the
+      Fourier series out of it.
+      <br />
+      With this you'll see that any periodic function can be written as a sum of
+      \(\sin(x)\) and \(\cos(x)\).
+    </p>
+
+    <p>
+      Choose a periodic function type and adjust its amplitude \(A\), frequency \(f\) and offset \(\phi\).
+    </p>
+
+
+    <select>
+        <option value="sinus"">Sinus</option>
+        <option value="rectangular"">Rectangular</option>
+        <option value="triangular"">Triangular</option>
+        <option value="sawtooth"">Sawtooth</option>
+    </select>
+
+    <br />
+
+    <canvas id="inputCanvas"></canvas>
+
+    <div class="slider-row">
+        <div>
+            <p>\(A =\) <span id="ampVal">\(3\)</span></p>
+            <input type="range" value="3" min="0" max="10" step="1" 
+            oninput="document.getElementById('ampVal').textContent = this.value"/>
+        </div>
+        <div>
+            <p>\(f = \) <span id="freqVal">\(33\)</span></p>
+            <input type="range" value="33" min="0" max="100" step="1"
+            oninput="document.getElementById('freqVal').textContent = this.value"/>
+        </div>
+        <div>
+            <p>\(\phi = \) <span id="offsetVal">\(0\)</span><sup>°</sup></p>
+            <input type="range" value="0" min="0" max="180" step="1"
+            oninput="document.getElementById('offsetVal').textContent = this.value"/>
+        </div>
+    </div>
+    
+    <br />
+    <br />
+
+    <p>How many modes should the Fourier series have?</p>
+    <input type="range" step="10" />
+
+    <br />
+
+    <canvas id="fourierCanvas"></canvas>
+    <p>\(f(x) = \sin(x) + \cos(x)\)</p>
+
+    <script src="script.js"></script>
+  </body>
+</html>
