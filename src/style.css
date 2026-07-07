@@ -24,11 +24,16 @@ canvas {
   border: 0.01rem solid;
   border-radius: 0.5rem;
   width: 50rem;
-  height: 10rem;
+  height: 20rem;
+}
+
+input[type="checkbox"] {
+  width: 1.2rem;
+  accent-color: gray;
 }
 
 
-.fourier-formula {
+.text-formula {
   font-size: larger;
 }
 
@@ -39,6 +44,18 @@ canvas {
 .slider-row {
   display: flex;
   gap: 2rem;
+  margin: 1rem 0 1rem 0;
+}
+
+.show-checkbox {
+  display: flex;
+  gap: 1rem;
+}
+
+.fourier-options {
+  display: flex;
+  align-items: center;
+  gap: 15rem;
   margin: 0 0 2rem 0;
 }
 
@@ -53,7 +70,7 @@ canvas {
   accent-color: rgb(10, 140, 200);
 }
 .offset-slider {
-  accent-color: rgb(180, 190, 10);
+  accent-color: rgb(255, 210, 0);;
 }
 .modes-slider {
   accent-color: orange;
