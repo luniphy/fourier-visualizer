@@ -8,7 +8,6 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
 select {
   background-color: #2e2e2e;
   color: white;
@@ -18,7 +17,6 @@ select {
   border: 0.01rem solid;
   border-radius: 0.2rem;
 }
-
 canvas {
   margin: 1rem 0 1rem 0;
   border: 0.01rem solid;
@@ -26,39 +24,32 @@ canvas {
   width: 50rem;
   height: 20rem;
 }
-
 input[type="checkbox"] {
   width: 1.2rem;
   accent-color: gray;
 }
 
-
 .text-formula {
   font-size: larger;
 }
-
 .fct-select {
   margin: 1rem 0 0 0;
 }
-
 .slider-row {
   display: flex;
   gap: 2rem;
   margin: 1rem 0 1rem 0;
 }
-
 .show-checkbox {
   display: flex;
   gap: 1rem;
 }
-
 .fourier-options {
   display: flex;
   align-items: center;
   gap: 15rem;
   margin: 0 0 2rem 0;
 }
-
 
 .amplitude-slider {
   accent-color: rgb(210, 10, 10);
@@ -70,7 +61,7 @@ input[type="checkbox"] {
   accent-color: rgb(10, 140, 200);
 }
 .offset-slider {
-  accent-color: rgb(255, 210, 0);;
+  accent-color: rgb(255, 210, 0);
 }
 .modes-slider {
   accent-color: orange;
