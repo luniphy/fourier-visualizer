@@ -10,7 +10,7 @@ function setupCanvas(canvas) {
   ctx.scale(dpr, dpr);
   return ctx;
 }
-function setupAxes(canvas, ctx, steps) {
+function setupAxes(canvas, ctx, ticks) {
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
 
@@ -26,20 +26,20 @@ function setupAxes(canvas, ctx, steps) {
   ctx.lineTo(w / 2, h);
 
   const tickLength = 3;
-  const step = w / steps;
+  const tick = w / ticks;
 
   // +/- x ticks
-  for (let x = 0; x < w; x += step) {
+  for (let x = 0; x < w; x += tick) {
     ctx.moveTo(x, h / 2 + tickLength);
     ctx.lineTo(x, h / 2 - tickLength);
   }
   // -y ticks
-  for (let y = h / 2; y < h; y += step) {
+  for (let y = h / 2; y < h; y += tick) {
     ctx.moveTo(w / 2 + tickLength, y);
     ctx.lineTo(w / 2 - tickLength, y);
   }
   // +y ticks
-  for (let y = h / 2; y >= 0; y -= step) {
+  for (let y = h / 2; y >= 0; y -= tick) {
     ctx.moveTo(w / 2 + tickLength, y);
     ctx.lineTo(w / 2 - tickLength, y);
   }
@@ -68,40 +68,47 @@ function sine(x, A, f, phi, O) {
 
 
 
-function RK4(fct, y) {
-  const h = 0.01; // step size
+function RK4(fct, start, end, steps) {
+  const h = (end - start) / steps; // step size
 
-  k0 = fct(y);
-  k1 = fct(y + (h / 2) * k0);
-  k2 = fct(y + (h / 2) * k1);
-  k3 = fct(y + h * k2);
+  let sum = 0;
 
-  return y + (h / 6) * (k0 + 2 * k1 + 2 * k2 + k3);
+  for (let i = 0; i < steps; i++) {
+    x = start + h * i;
+
+    k0 = fct(x);
+    k1 = fct(x + h / 2);
+    k2 = fct(x + h / 2);
+    k3 = fct(x + h);
+
+    sum += (h / 6) * (k0 + 2 * k1 + 2 * k2 + k3);
+  }
+  return sum;
 }
-function a0Coefficient(a0_old, fct) {
-  fct = (1 / Math.PI) * fct;
-  return RK4(fct, a0_old);
+function an(fct, A, f, phi, O, n, w) {
+  return function (t) {
+    const xPixel = (t * w) / (2 * Math.PI);
+    return (1 / Math.PI) * fct(xPixel, A, f, phi, O) * Math.cos(n * t);
+  };
 }
-function anCoefficient(an_old, fct, n, x) {
-  fct = (1 / Math.PI) * fct * Math.cos(n * x);
-  return RK4(fct, an_old);
-}
-function bnCoefficient(bn_old, fct, n, x) {
-  fct = (1 / Math.PI) * fct * Math.sin(n * x);
-  return RK4(fct, bn_old);
+function bn(fct, A, f, phi, O, n, w) {
+  return function (t) {
+    const xPixel = (t * w) / (2 * Math.PI);
+    return (1 / Math.PI) * fct(xPixel, A, f, phi, O) * Math.sin(n * t);
+  };
 }
 
 
 
-function drawInputWave(canvas, ctx, steps, fctSelect, A, f, phi, O) {
+function drawInputWave(canvas, ctx, ticks, fctSelect, A, f, phi, O) {
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
 
-  const step = w / steps;
+  const tick = w / ticks;
 
-  const fScaled = f / step;
-  const AScaled = A * step;
-  const OScaled = O * step;
+  const fScaled = f / tick;
+  const AScaled = A * tick;
+  const OScaled = O * tick;
 
   const waveFunctions = { rectangular, sawtooth, triangular, sine };
   const fct = waveFunctions[fctSelect];
@@ -111,9 +118,8 @@ function drawInputWave(canvas, ctx, steps, fctSelect, A, f, phi, O) {
 
   for (let x = 0; x < w; x++) {
     const xCentered = x - w / 2;
-    const waveVal = fct(xCentered, AScaled, fScaled, phi, OScaled);
 
-    const y = h / 2 - waveVal;
+    const y = h / 2 - fct(xCentered, AScaled, fScaled, phi, OScaled);
 
     if (x == 0) {
       ctx.moveTo(x, y);
@@ -124,45 +130,45 @@ function drawInputWave(canvas, ctx, steps, fctSelect, A, f, phi, O) {
 
   ctx.stroke();
 }
-function drawFourierWave(canvas, ctx, steps, fctSelect, A, f, phi, O, n) {
+function drawFourierWave(canvas, ctx, ticks, fctSelect, A, f, phi, O, n) {
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
 
-  const step = w / steps;
+  const tick = w / ticks;
 
-  const fScaled = f / step;
-  const AScaled = A * step;
-  const OScaled = O * step;
+  const fScaled = f / tick;
+  const AScaled = A * tick;
+  const OScaled = O * tick;
 
   const waveFunctions = { rectangular, sawtooth, triangular, sine };
   const fct = waveFunctions[fctSelect];
 
-  a0 = 0;
-  an = 0;
-  bn = 0;
+  let a = [];
+  let b = [];
+
+  for (let i = 0; i <= n; i++) {
+    a.push(RK4(an(fct, AScaled, fScaled, phi, OScaled, i, w), -Math.PI, Math.PI, 1000));
+    b.push(RK4(bn(fct, AScaled, fScaled, phi, OScaled, i, w), -Math.PI, Math.PI, 1000));
+  }
 
   ctx.strokeStyle = "orange";
   ctx.beginPath();
 
   for (let x = 0; x < w; x++) {
     const xCentered = x - w / 2;
-    const waveVal = fct(xCentered, AScaled, fScaled, phi, OScaled);
+    const tCentered = (xCentered * (2 * Math.PI)) / w;
 
-    a0 = a0Coefficient(a0, fct, xCentered, AScaled, fScaled, phi, OScaled);
-
-    sum = a0 / 2;
-
+    sum = a[0] / 2;
     for (let i = 1; i <= n; i++) {
-      an = anCoefficient(an, fct, i, xCentered, AScaled, fScaled, phi, OScaled);
-      bn = bnCoefficient(bn, fct, i, xCentered, AScaled, fScaled, phi, OScaled);
-      sum += an * Math.cos(n * x) + bn * Math.sin(n * x)
+      sum += a[i] * Math.cos(i * tCentered) + b[i] * Math.sin(i * tCentered);
     }
 
     const y = h / 2 - sum;
 
     if (x == 0) {
       ctx.moveTo(x, y);
-    } else {
+    }
+    else {
       ctx.lineTo(x, y);
     }
   }
@@ -185,22 +191,29 @@ function redraw() {
   document.getElementById("offsetVal").textContent = O;
   document.getElementById("modesVal").textContent = n;
 
+  inputCheck = document.querySelector(".input-checkbox").checked;
+  fourierCheck = document.querySelector(".fourier-checkbox").checked;
+
   mathCtx.clearRect(0, 0, mathCanvas.width, mathCanvas.height);
-  setupAxes(mathCanvas, mathCtx, stepCount);
+  setupAxes(mathCanvas, mathCtx, tickCount);
 
   fctSelect = document.querySelector(".fct-select").value;
   phi = (phi * Math.PI) / 180;
-  drawInputWave(mathCanvas, mathCtx, (steps = stepCount), fctSelect, A, f, phi, O);
-  drawFourierWave(mathCanvas, mathCtx, (steps = stepCount), fctSelect, A, f, phi, O, n);
+  if (inputCheck) {
+    drawInputWave(mathCanvas, mathCtx, (ticks = tickCount), fctSelect, A, f, phi, O);
+  }
+  if (fourierCheck) {
+    drawFourierWave(mathCanvas, mathCtx, (ticks = tickCount), fctSelect, A, f, phi, O, n);
+  }
 }
 
 
 
-stepCount = 20;
+tickCount = 20;
 
 mathCanvas = document.getElementById("mathCanvas");
 mathCtx = setupCanvas(mathCanvas);
-setupAxes(mathCanvas, mathCtx, (steps = stepCount));
+setupAxes(mathCanvas, mathCtx, (ticks = tickCount));
 
 redraw();
 
@@ -212,6 +225,5 @@ document.querySelector(".phase-slider").oninput = redraw;
 document.querySelector(".offset-slider").oninput = redraw;
 document.querySelector(".modes-slider").oninput = redraw;
 
-// TODO: Adjust Intro text
-// TODO: CheckBox for input fct in fourierCanvas
-// w = 2 * pi * f
+document.querySelector(".input-checkbox").addEventListener("change", redraw);
+document.querySelector(".fourier-checkbox").addEventListener("change", redraw);

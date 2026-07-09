@@ -24,10 +24,6 @@ canvas {
   width: 50rem;
   height: 20rem;
 }
-input[type="checkbox"] {
-  width: 1.2rem;
-  accent-color: gray;
-}
 
 .text-formula {
   font-size: larger;
@@ -40,14 +36,26 @@ input[type="checkbox"] {
   gap: 2rem;
   margin: 1rem 0 1rem 0;
 }
-.show-checkbox {
+.checkboxes {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
+}
+.checkbox {
+  display: flex;
+  gap: 0.75rem;
+}
+.input-checkbox {
+  width: 1.2rem;
+  accent-color: white;
+}
+.fourier-checkbox {
+  width: 1.2rem;
+  accent-color: orange;
 }
 .fourier-options {
   display: flex;
   align-items: center;
-  gap: 15rem;
+  gap: 10rem;
   margin: 0 0 2rem 0;
 }
 
@@ -64,5 +72,6 @@ input[type="checkbox"] {
   accent-color: rgb(255, 210, 0);
 }
 .modes-slider {
+  width: 13rem;
   accent-color: orange;
 }

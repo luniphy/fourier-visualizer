@@ -11,7 +11,7 @@
     <h1>Fourier Series Visualizer</h1>
 
     <p>
-      Welcome to this little visual demonstration of a
+      Welcome to this little visual demonstration on
       <strong>Fourier series</strong>.
     </p>
 
@@ -93,26 +93,40 @@
     </div>
 
     <canvas id="mathCanvas"></canvas>
-    
+
     <div class="fourier-options">
+      <div class="checkboxes">
+        <div class="checkbox">
+          <p>Show input wave:</p>
+          <input class="input-checkbox" type="checkbox" checked="true" />
+        </div>
+        <div class="checkbox">
+          <p>Show Fourier series:</p>
+          <input class="fourier-checkbox" type="checkbox" checked="true" />
+        </div>
+      </div>
+
       <div>
         <p>\( n = \) <span id="modesVal">\(0\)</span></p>
         <input
           class="modes-slider"
           type="range"
-          value="0"
+          value="10"
           min="1"
-          max="15"
+          max="75"
           step="1"
         />
       </div>
-      <div class="show-checkbox">
-        <p>Show Fourier series:</p>
-        <input type="checkbox"/>
-      </div>
     </div>
 
-    <p>\( f(x) = \sin(x) + \cos(x) \)</p>
+    <p>
+      Adjust the modes \( n \). The higher \( n \), the more the series matches
+      the original function.
+
+      <br />
+
+      For \( n \rightarrow \infty \) the series matches \(f(x)\) perfectly.
+    </p>
 
     <script src="script.js"></script>
   </body>
