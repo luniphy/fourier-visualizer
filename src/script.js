@@ -179,11 +179,11 @@ function drawFourierWave(canvas, ctx, ticks, fctSelect, A, f, phi, O, n) {
 
 
 function redraw() {
-  A = parseFloat(document.querySelector(".amplitude-slider").value);
-  f = parseFloat(document.querySelector(".frequency-slider").value);
-  phi = parseInt(document.querySelector(".phase-slider").value);
-  O = parseFloat(document.querySelector(".offset-slider").value);
-  n = parseInt(document.querySelector(".modes-slider").value);
+  A = parseFloat(document.getElementById("amplitude-slider").value);
+  f = parseFloat(document.getElementById("frequency-slider").value);
+  phi = parseInt(document.getElementById("phase-slider").value);
+  O = parseFloat(document.getElementById("offset-slider").value);
+  n = parseInt(document.getElementById("modes-slider").value);
 
   document.getElementById("ampVal").textContent = A;
   document.getElementById("freqVal").textContent = f;
@@ -191,19 +191,23 @@ function redraw() {
   document.getElementById("offsetVal").textContent = O;
   document.getElementById("modesVal").textContent = n;
 
-  inputCheck = document.querySelector(".input-checkbox").checked;
-  fourierCheck = document.querySelector(".fourier-checkbox").checked;
+  fctSelect = document.getElementById("fct-select").value;
+
+  inputCheck = document.getElementById("input-checkbox").checked;
+  fourierCheck = document.getElementById("fourier-checkbox").checked;
+
 
   mathCtx.clearRect(0, 0, mathCanvas.width, mathCanvas.height);
   setupAxes(mathCanvas, mathCtx, tickCount);
 
-  fctSelect = document.querySelector(".fct-select").value;
   phi = (phi * Math.PI) / 180;
+
+
   if (inputCheck) {
-    drawInputWave(mathCanvas, mathCtx, (ticks = tickCount), fctSelect, A, f, phi, O);
+    drawInputWave(mathCanvas, mathCtx, tickCount, fctSelect, A, f, phi, O);
   }
   if (fourierCheck) {
-    drawFourierWave(mathCanvas, mathCtx, (ticks = tickCount), fctSelect, A, f, phi, O, n);
+    drawFourierWave(mathCanvas, mathCtx, tickCount, fctSelect, A, f, phi, O, n);
   }
 }
 
@@ -217,13 +221,15 @@ setupAxes(mathCanvas, mathCtx, (ticks = tickCount));
 
 redraw();
 
-document.querySelector(".fct-select").addEventListener("change", redraw);
 
-document.querySelector(".amplitude-slider").oninput = redraw;
-document.querySelector(".frequency-slider").oninput = redraw;
-document.querySelector(".phase-slider").oninput = redraw;
-document.querySelector(".offset-slider").oninput = redraw;
-document.querySelector(".modes-slider").oninput = redraw;
+document.getElementById("fct-select").addEventListener("change", redraw);
 
-document.querySelector(".input-checkbox").addEventListener("change", redraw);
-document.querySelector(".fourier-checkbox").addEventListener("change", redraw);
+document.getElementById("amplitude-slider").oninput = redraw;
+document.getElementById("frequency-slider").oninput = redraw;
+document.getElementById("phase-slider").oninput = redraw;
+document.getElementById("offset-slider").oninput = redraw;
+document.getElementById("modes-slider").oninput = redraw;
+
+
+document.getElementById("input-checkbox").addEventListener("change", redraw);
+document.getElementById("fourier-checkbox").addEventListener("change", redraw);
