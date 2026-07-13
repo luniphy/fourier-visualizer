@@ -9,13 +9,17 @@ body {
   align-items: center;
 }
 
+h1 {
+  margin-bottom: 3rem;
+}
+
 select {
   background-color: #2e2e2e;
   color: white;
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
-  border: 1px solid;
+  border: 1px solid white;
   border-radius: 0.2rem;
   margin-top: 1rem;
   padding: 0.5rem;
@@ -24,9 +28,13 @@ select {
 canvas {
   width: 50rem;
   height: 20rem;
-  border: 1px solid;
+  border: 1px solid white;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
+}
+
+a {
+  color: gray;
 }
 
 
@@ -36,16 +44,21 @@ canvas {
   margin: 2rem;
 }
 
+#instruction-start {
+  margin-top: 3rem;
+}
+
 .slider-row {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   gap: 2rem;
   margin: 2rem 1rem;
 }
-.slider-row > div {
+.slider {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 #amplitude-slider {
   accent-color: rgb(210, 10, 10);
@@ -62,17 +75,20 @@ canvas {
 
 .fourier-options {
   display: flex;
-  align-items: flex-start;
+  flex-direction: row;
   justify-content: center;
-  gap: 9rem;
-  margin-bottom: 2rem;
+  gap: 14rem;
+  margin-bottom: 3rem;
 }
-.checkboxes-row {
+.checkboxes-col {
   display: flex;
-  gap: 2rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
 }
 .checkbox {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 0.75rem;
 }
@@ -89,4 +105,16 @@ canvas {
 #modes-slider {
   width: 13rem;
   accent-color: orange;
+}
+.modes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#credit {
+  font-size: 0.9rem;
+  color: gray;
+  margin-top: 5rem;
 }

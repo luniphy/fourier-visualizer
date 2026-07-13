@@ -185,11 +185,11 @@ function redraw() {
   O = parseFloat(document.getElementById("offset-slider").value);
   n = parseInt(document.getElementById("modes-slider").value);
 
-  document.getElementById("ampVal").textContent = A;
-  document.getElementById("freqVal").textContent = f;
-  document.getElementById("phaseVal").textContent = phi;
-  document.getElementById("offsetVal").textContent = O;
-  document.getElementById("modesVal").textContent = n;
+  document.getElementById("amp-val").textContent = A;
+  document.getElementById("freq-val").textContent = f;
+  document.getElementById("phase-val").textContent = phi;
+  document.getElementById("offset-val").textContent = O;
+  document.getElementById("modes-val").textContent = n;
 
   fctSelect = document.getElementById("fct-select").value;
 
@@ -215,7 +215,7 @@ function redraw() {
 
 tickCount = 20;
 
-mathCanvas = document.getElementById("mathCanvas");
+mathCanvas = document.getElementById("math-canvas");
 mathCtx = setupCanvas(mathCanvas);
 setupAxes(mathCanvas, mathCtx, (ticks = tickCount));
 

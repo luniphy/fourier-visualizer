@@ -13,26 +13,30 @@
       <h1>Fourier Series Visualizer</h1>
 
       <p>
-        Welcome to this little visual demonstration on
+        Welcome to this interactive demonstration on
         <strong>Fourier series</strong>.
       </p>
 
       <p>
-        The Fourier series shows that any periodic function \(f(x)\) can be written as a
-        sum of \(\sin(x)\) and \(\cos(x)\) terms.
+        The Fourier series is mathematical concept used throughout physics, engineering
+        (signal processing etc.).
+        <br>
+        It shows that any periodic function \(f(x)\) can be written as a
+        sum of \(\sin(x)\) and \(\cos(x)\) terms:
       </p>
 
       <p class="text-formula">
         \( f(x) = \frac{a_0}{2} + \sum_{n = 1}^{\infty} \; ( a_n \; \cos(nx) + b_n
-        \; \sin(nx) ) \)
+        \; \sin(nx) ) \),
       </p>
+      <p>where \(a_n\) and \(b_n\) represent the Fourier coefficients.</p>
       <p class="text-formula">
         \( a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \;\mathrm{d}x, \; \; a_n
         = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \; \cos(nx) \;\mathrm{d}x, \; \;
         b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \; \sin(nx) \;\mathrm{d}x \)
       </p>
 
-      <p>
+      <p id="instruction-start">
         Here you can adjust the parameters of a periodic function \(f(x)\) and the
         program will draw its Fourier series.
         <br>
@@ -48,32 +52,32 @@
       </select>
 
       <div class="slider-row">
-        <div>
-          <label for="amplitude-slider">\( A = \) <span id="ampVal"></span></label>
+        <div class="slider">
+          <label for="amplitude-slider">\( A = \) <span id="amp-val"></span></label>
           <input id="amplitude-slider" type="range"
             value="1" min="0" max="3" step="0.1">
         </div>
-        <div>
-          <label for="frequency-slider">\( f = \) <span id="freqVal"></span></label>
+        <div class="slider">
+          <label for="frequency-slider">\( f = \) <span id="freq-val"></span></label>
           <input id="frequency-slider" type="range"
             value="1" min="0.1" max="10" step="0.1">
         </div>
-        <div>
-          <label for="phase-slider">\( \phi = \) <span id="phaseVal"></span><sup>°</sup></label>
+        <div class="slider">
+          <label for="phase-slider">\( \phi = \) <span id="phase-val"></span>°</label>
           <input id="phase-slider" type="range"
             value="90" min="0" max="360" step="1">
         </div>
-        <div>
-          <label for="offset-slider">\( \mathrm{O} = \) <span id="offsetVal"></span></label>
+        <div class="slider">
+          <label for="offset-slider">\( \mathrm{O} = \) <span id="offset-val"></span></label>
           <input id="offset-slider" type="range"
             value="0" min="-3" max="3" step="0.1">
         </div>
       </div>
 
-      <canvas id="mathCanvas"></canvas>
+      <canvas id="math-canvas"></canvas>
 
       <div class="fourier-options">
-        <div class="checkboxes">
+        <div class="checkboxes-col">
           <div class="checkbox">
             <label for="input-checkbox">Show input wave:</label>
             <input id="input-checkbox" type="checkbox" checked>
@@ -83,17 +87,23 @@
             <input id="fourier-checkbox" type="checkbox" checked>
           </div>
         </div>
-        <div>
-          <label for="modes-slider">\( n = \) <span id="modesVal"></span></label>
+        <div class="modes">
+          <label for="modes-slider">\( n = \) <span id="modes-val"></span></label>
           <input id="modes-slider" type="range"
             value="10" min="1" max="100" step="1">
         </div>
       </div>
 
       <p>
-        By adjusting the modes \( n \), you'll see how good the series matches the original function.
+        By adjusting the modes \( n \), you'll see how closely the series matches the original function.
         <br>
-        The higher \( n \) is, the better. For \( n \rightarrow \infty \) the series matches \(f(x)\) perfectly.
+        Each additional mode adds one more \(\sin\)/\(\cos\) term, approximating \(f\) better.
+        <br> 
+        Therefore the higher \( n \) is, the better. For \( n \rightarrow \infty \) the series matches \(f\) perfectly.
+      </p>
+
+      <p id="credit">
+        © <a href="https://github.com/luniphys/" target="_blank" rel="noopener noreferrer">luniphys</a>
       </p>
 
     </main>
