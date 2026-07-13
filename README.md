@@ -9,7 +9,7 @@
 Short summary
 
 <p align="center">
-    <img src="docs/Images/image.png" width="800" alt="GUI image">
+    <img src="docs/images/screenshot.png" width="800" alt="GUI image">
 </p>
 
 
