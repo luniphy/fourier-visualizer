@@ -60,18 +60,22 @@ git clone https://github.com/luniphys/fourier-visualizer.git
 Any periodic function $f(x)$ can be expressed as a sum of $\sin(x)$ and $\cos(x)$ terms:
 
 $$
-f(x) = \frac{a_0}{2} + \sum_{n = 1}^{\infty} \; ( a_n \; \cos(nx) + b_n \; \sin(nx) )
+f(x) = \frac{a_0}{2} + \sum_{n = 1}^{\infty} ( a_n \cos(nx) + b_n \sin(nx) )
 $$
 
 The Fourier coefficients $a_n$ and $b_n$ are defined by the integrals:
 
 $$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \;\mathrm{d}x, \; \;
-a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \; \cos(nx) \;\mathrm{d}x, \; \;
-b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \; \sin(nx) \;\mathrm{d}x
+a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \mathrm{d}x,
+$$
+$$
+a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(nx) \mathrm{d}x,
+$$
+$$
+b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin(nx) \mathrm{d}x
 $$
 
-For $n→∞$ the series converges to $f(x)$.
+For $n→\infty$ the series converges to $f(x)$.
 
 
 ## License
