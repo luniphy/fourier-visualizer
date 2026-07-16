@@ -6,7 +6,7 @@
 
 # Fourier Series Visualizer
 
-Short summary
+An interactive web tool for exploring on how Fourier series approximate periodic functions.
 
 <p align="center">
     <img src="docs/images/screenshot.png" width="800" alt="GUI image">
@@ -25,39 +25,53 @@ Short summary
 
 ## Overview
 
-Summary
+This tool lets you visualize how a Fourier series converges to a given periodic function. Select a wave shape, tune its parameters and watch how adding more modes brings the approximation curve closer to the original function.
 
-The program pipeline is:
-
-1. Step1
-2. Step2
+1. Select a wave type and adjust its amplitude, frequency, phase and offset via sliders.
+2. After the Fourier series is determined numerically using the Simpson's rule, it is drawn on the canvas alongside the original wave.
 
 
 ## Features
 
-- Feature1
-- Feature2
+- Four wave shapes: rectangular, sawtooth, triangular, and sine
+- Real-time parameter controls: amplitude $A$, frequency $f$, phase $\phi$, and vertical offset $O$
+- Adjustable number of modes $n$ (1–100) to observe convergence
+- Toggle the input wave and Fourier series visibility independently
 
 
 ## Project Structure
 
 ```
-src/        # description
-docs/       # description
+src/        # HTML, CSS, JavaScript source files
+docs/       # Documentation assets
 ```
-
 
 
 ## Build & Run
 
-Clone the repository and run the application from the solution root:
+Clone the repository and open `src/index.html` in a browser.
 
 ```sh
 git clone https://github.com/luniphys/fourier-visualizer.git
-cd fourier-visualizer
 ```
 
 ## Mathematics & Theory
+
+Any periodic function $f(x)$ can be expressed as a sum of $\sin(x)$ and $\cos(x)$ terms:
+
+$$
+f(x) = \frac{a_0}{2} + \sum_{n = 1}^{\infty} \; ( a_n \; \cos(nx) + b_n \; \sin(nx) )
+$$
+
+The Fourier coefficients $a_n$ and $b_n$ are defined by the integrals:
+
+$$
+a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \;\mathrm{d}x, \; \;
+a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \; \cos(nx) \;\mathrm{d}x, \; \;
+b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} \; f(x) \; \sin(nx) \;\mathrm{d}x
+$$
+
+For $n→∞$ the series converges to $f(x)$.
 
 
 ## License

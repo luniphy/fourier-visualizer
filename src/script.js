@@ -66,12 +66,13 @@ const waveFunctions = { rectangular, sawtooth, triangular, sine };
 
 
 
-function simpsonsRule(fct, start, end, steps) {
-  const h = (end - start) / steps; // step size
+function simpsonsRule(fct, start, end) {
+  const integrationSteps = 1000;
+  const h = (end - start) / integrationSteps; // step size
 
   let sum = 0;
 
-  for (let i = 0; i < steps; i++) {
+  for (let i = 0; i < integrationSteps; i++) {
     const x = start + h * i;
 
     const a = fct(x);
@@ -83,15 +84,13 @@ function simpsonsRule(fct, start, end, steps) {
   return sum;
 }
 function an(fct, A, f, phi, O, n) {
-  return function (t) {
-    const xPixel = (t * canvasWidth) / (2 * Math.PI);
-    return (1 / Math.PI) * fct(xPixel, A, f, phi, O) * Math.cos(n * t);
+  return function (x) {
+    return (1 / Math.PI) * fct(x, A, f, phi, O) * Math.cos(n * x);
   };
 }
 function bn(fct, A, f, phi, O, n) {
-  return function (t) {
-    const xPixel = (t * canvasWidth) / (2 * Math.PI);
-    return (1 / Math.PI) * fct(xPixel, A, f, phi, O) * Math.sin(n * t);
+  return function (x) {
+    return (1 / Math.PI) * fct(x, A, f, phi, O) * Math.sin(n * x);
   };
 }
 
@@ -103,8 +102,9 @@ function drawInputWave(ctx, fct, A, f, phi, O) {
 
   for (let x = 0; x < canvasWidth; x++) {
     const xCentered = x - canvasWidth / 2;
+    const t = (xCentered * (2 * Math.PI)) / canvasWidth; // Conversion
 
-    const y = canvasHeight / 2 - fct(xCentered, A, f, phi, O);
+    const y = canvasHeight / 2 - fct(t, A, f, phi, O);
 
     if (x === 0) {
       ctx.moveTo(x, y);
@@ -116,14 +116,12 @@ function drawInputWave(ctx, fct, A, f, phi, O) {
   ctx.stroke();
 }
 function drawFourierWave(ctx, fct, A, f, phi, O, n) {
-  const INTEGRATION_STEPS = 1000;
-
   const a = [];
   const b = [];
 
   for (let i = 0; i <= n; i++) {
-    a.push(simpsonsRule(an(fct, A, f, phi, O, i), -Math.PI, Math.PI, INTEGRATION_STEPS));
-    b.push(simpsonsRule(bn(fct, A, f, phi, O, i), -Math.PI, Math.PI, INTEGRATION_STEPS));
+    a.push(simpsonsRule(an(fct, A, f, phi, O, i), -Math.PI, Math.PI));
+    b.push(simpsonsRule(bn(fct, A, f, phi, O, i), -Math.PI, Math.PI));
   }
 
   ctx.strokeStyle = "orange";
@@ -131,11 +129,11 @@ function drawFourierWave(ctx, fct, A, f, phi, O, n) {
 
   for (let x = 0; x < canvasWidth; x++) {
     const xCentered = x - canvasWidth / 2;
-    const tCentered = (xCentered * (2 * Math.PI)) / canvasWidth;
+    const t = (xCentered * (2 * Math.PI)) / canvasWidth; // Conversion
 
     let sum = a[0] / 2;
     for (let i = 1; i <= n; i++) {
-      sum += a[i] * Math.cos(i * tCentered) + b[i] * Math.sin(i * tCentered);
+      sum += a[i] * Math.cos(i * t) + b[i] * Math.sin(i * t);
     }
 
     const y = canvasHeight / 2 - sum;
@@ -179,7 +177,7 @@ function redraw() {
   const fct = waveFunctions[selectedFct];
 
   const AScaled = A * OneTick;
-  const fScaled = f / OneTick;
+  const fScaled = f * tickCount / (2 * Math.PI);
   const phiRad = (phiDeg * Math.PI) / 180;
   const OScaled = O * OneTick;
 
@@ -194,16 +192,7 @@ function redraw() {
 
 
 
-const mathCanvas = document.getElementById("math-canvas");
-const mathCtx = setupCanvas(mathCanvas);
-
-const canvasWidth = mathCanvas.clientWidth;
-const canvasHeight = mathCanvas.clientHeight;
-
-const tickCount = 20;
-const OneTick = canvasWidth / tickCount;
-
-
+// Caching nodes
 const ampSlider = document.getElementById("amplitude-slider");
 const freqSlider = document.getElementById("frequency-slider");
 const phaseSlider = document.getElementById("phase-slider");
@@ -222,9 +211,21 @@ const inputCheckbox = document.getElementById("input-checkbox");
 const fourierCheckbox = document.getElementById("fourier-checkbox");
 
 
+// Canvas
+const mathCanvas = document.getElementById("math-canvas");
+const mathCtx = setupCanvas(mathCanvas);
+
+const canvasWidth = mathCanvas.clientWidth;
+const canvasHeight = mathCanvas.clientHeight;
+
+const tickCount = 20;
+const OneTick = canvasWidth / tickCount;
+
+
 redraw();
 
 
+// Event handlers
 ampSlider.oninput = redraw;
 freqSlider.oninput = redraw;
 phaseSlider.oninput = redraw;
