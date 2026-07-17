@@ -9,7 +9,7 @@
 An interactive web tool for exploring on how Fourier series approximate periodic functions.
 
 <p align="center">
-    <img src="docs/images/screenshot.png" width="800" alt="GUI image">
+    <img src="docs/images/sawtooth_example.png" width="800" alt="GUI image">
 </p>
 
 
