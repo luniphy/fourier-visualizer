@@ -25,17 +25,19 @@ An interactive web tool for exploring on how Fourier series approximate periodic
 
 ## Overview
 
-This tool lets you visualize how a Fourier series converges to a given periodic function. Select a wave shape, tune its parameters and watch how adding more modes brings the approximation curve closer to the original function.
+This tool lets you visualize how a Fourier series converges to a given periodic function. Select a wave shape and watch how adding more modes brings the approximation curve closer to the original function.
 
-1. Select a wave type and adjust its amplitude, frequency, phase and offset via sliders.
-2. After the Fourier series is determined numerically using the Simpson's rule, it is drawn on the canvas alongside the original wave.
+1. Select a wave type.
+2. Adjust amplitude, frequency, phase and offset via sliders.
+3. The Fourier series is (determined numerically using the Simpson's rule) drawn on the canvas alongside the original wave.
+4. Increase modes slider to observe convergence.
 
 
 ## Features
 
 - Four wave shapes: rectangular, sawtooth, triangular, and sine
-- Real-time parameter controls: amplitude $A$, frequency $f$, phase $\phi$, and vertical offset $O$
-- Adjustable number of modes $n$ (1–100) to observe convergence
+- Real-time wave parameter controls: amplitude $A$, frequency $f$, phase $\phi$, and vertical offset $O$
+- Adjustable number of modes $n$ (1–100)
 - Toggle the input wave and Fourier series visibility independently
 
 
@@ -49,7 +51,7 @@ docs/       # Documentation assets
 
 ## Build & Run
 
-Clone the repository and open `src/index.html` in a browser.
+Clone the repository and open `index.html` in a browser.
 
 ```sh
 git clone https://github.com/luniphys/fourier-visualizer.git
@@ -66,9 +68,6 @@ $$
 The Fourier coefficients $a_n$ and $b_n$ are defined by the integrals:
 
 $$
-a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \mathrm{d}x,
-$$
-$$
 a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(nx) \mathrm{d}x,
 $$
 $$
@@ -80,4 +79,4 @@ For $n→\infty$ the series converges to $f(x)$.
 
 ## License
 
-MIT © [luniphys](https://github.com/luniphys)
+MIT © [luniphy](https://github.com/luniphy)
