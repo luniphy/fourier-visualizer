@@ -54,7 +54,7 @@ docs/       # Documentation assets
 Clone the repository and open `index.html` in a browser.
 
 ```sh
-git clone https://github.com/luniphys/fourier-visualizer.git
+git clone https://github.com/luniphy/fourier-visualizer.git
 ```
 
 ## Mathematics & Theory
