@@ -45,7 +45,7 @@ This tool lets you visualize how a Fourier series converges to a given periodic 
 
 ```
 fourier-visualizer/
-├─ docs/images       # Documentation iamges
+├─ docs/images       # Documentation images
 ├─ src/
 │  ├─ index.html
 │  ├─ script.js
